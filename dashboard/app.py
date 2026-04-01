@@ -56,20 +56,17 @@ footer { display: none !important; }
 [data-testid="stSidebar"] {
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
 }
-/* Cacher le bouton collapse natif Streamlit */
-[data-testid="collapsedControl"] { display: none !important; }
-button[kind="header"] { display: none !important; }
-
-/* ── Bouton toggle sidebar custom ── */
-.sidebar-toggle-btn button {
-    position: fixed !important; top: 0.6rem !important; left: 0.6rem !important;
-    z-index: 9999 !important; background: #1E293B !important;
-    color: #F1F5F9 !important; border: 1px solid #334155 !important;
-    border-radius: 8px !important; font-size: 1.1rem !important;
-    width: 38px !important; height: 38px !important; padding: 0 !important;
-    cursor: pointer !important; box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+/* Bouton collapse natif Streamlit — stylisé */
+[data-testid="collapsedControl"] {
+    background: #1E293B !important;
+    border-radius: 0 8px 8px 0 !important;
+    border: 1px solid #334155 !important;
+    border-left: none !important;
+    top: 1rem !important;
 }
-.sidebar-toggle-btn button:hover { background: #334155 !important; }
+[data-testid="collapsedControl"] button {
+    color: #94A3B8 !important;
+}
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
@@ -342,8 +339,6 @@ def all_cities_snapshot(date_str, tm, wnd, pr, rad, et0):
 # ──────────────────────────────────────────────────────────────
 if "result" not in st.session_state:
     st.session_state.result = None
-if "sidebar_open" not in st.session_state:
-    st.session_state.sidebar_open = True
 # Pré-initialiser les widgets des onglets pour éviter le retour au tab 1
 if "map_mode" not in st.session_state:
     st.session_state.map_mode = "🌡️ Heatmap densité"
@@ -356,45 +351,11 @@ if "ca" not in st.session_state:
 if "cb" not in st.session_state:
     st.session_state.cb = "Douala"
 
-# ──────────────────────────────────────────────────────────────
-# TOGGLE SIDEBAR via CSS conditionnel
-# ──────────────────────────────────────────────────────────────
-if not st.session_state.sidebar_open:
-    st.markdown("""
-    <style>
-    [data-testid="stSidebar"] { display: none !important; }
-    .main .block-container { max-width: 100% !important; padding-left: 1rem !important; }
-    </style>""", unsafe_allow_html=True)
-
-# Bouton toggle flottant
-st.markdown(f"""
-<style>
-#sidebar-toggle-float {{
-    position: fixed; top: 10px; left: 10px; z-index: 99999;
-    background: #1E293B; color: #F1F5F9; border: 1px solid #334155;
-    border-radius: 8px; font-size: 1.1rem; width: 38px; height: 38px;
-    cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    display: flex; align-items: center; justify-content: center;
-}}
-#sidebar-toggle-float:hover {{ background: #334155; }}
-</style>
-<button id="sidebar-toggle-float" onclick="
-    const btn = window.parent.document.querySelectorAll('button');
-    for(let b of btn) {{
-        if(b.innerText === '{"✕" if st.session_state.sidebar_open else "☰"}') {{ b.click(); break; }}
-    }}
-">{"✕" if st.session_state.sidebar_open else "☰"}</button>
-""", unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────────────────────
 # SIDEBAR — COMPACTE, PAS DE SCROLL
 # ──────────────────────────────────────────────────────────────
 with st.sidebar:
-    # Bouton fermer en haut de la sidebar
-    if st.button("← Réduire", key="toggle_sidebar"):
-        st.session_state.sidebar_open = False
-        st.rerun()
-
     # Header compact
     st.markdown("""
     <div style="text-align:center;padding:.15rem 0 .5rem">
@@ -541,12 +502,6 @@ for ci_k,(ic,lb,c,v,u) in zip(cols_k, kpis):
                   f'<div class="l">{ic} {lb} — {u}</div></div>', unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
-
-# ── Bouton réouvrir sidebar quand elle est cachée ──
-if not st.session_state.sidebar_open:
-    if st.button("☰ Paramètres", key="toggle_sidebar_open"):
-        st.session_state.sidebar_open = True
-        st.rerun()
 
 # ── Tabs — avec mémorisation de l'onglet actif ──
 tab_labels = [
