@@ -35,9 +35,14 @@ header[data-testid="stHeader"] { display: none !important; }
 footer { display: none !important; }
 
 /* ── Sidebar toujours visible ── */
-[data-testid="stSidebar"] { display: flex !important; visibility: visible !important;
-    background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important; }
+[data-testid="stSidebar"] {
+    display: flex !important; visibility: visible !important; opacity: 1 !important;
+    transform: none !important; left: 0 !important; position: relative !important;
+    background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
+}
+/* Cacher le bouton collapse (flèche) mais garder la sidebar ouverte */
 [data-testid="collapsedControl"] { display: none !important; }
+button[kind="header"] { display: none !important; }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
