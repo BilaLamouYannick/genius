@@ -438,7 +438,7 @@ if st.session_state.result is None:
     st.markdown("""
     <div style="text-align:center;padding:3.5rem 2rem;background:white;
                 border-radius:16px;border:2px dashed #E2E8F0">
-    #   <div style="font-size:3rem">🔮</div>
+      
       <div style="font-size:1.2rem;font-weight:700;color:#1E293B;margin-top:.6rem">
         Configurez les paramètres et cliquez <em>Prédire maintenant</em>
       </div>
