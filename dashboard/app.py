@@ -52,15 +52,24 @@ header[data-testid="stHeader"] { display: none !important; }
 #MainMenu { display: none !important; }
 footer { display: none !important; }
 
-/* ── Sidebar toujours visible ── */
+/* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    display: flex !important; visibility: visible !important; opacity: 1 !important;
-    transform: none !important; left: 0 !important; position: relative !important;
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
 }
-/* Cacher le bouton collapse (flèche) mais garder la sidebar ouverte */
+/* Cacher le bouton collapse natif Streamlit */
 [data-testid="collapsedControl"] { display: none !important; }
 button[kind="header"] { display: none !important; }
+
+/* ── Bouton toggle sidebar custom ── */
+.sidebar-toggle-btn button {
+    position: fixed !important; top: 0.6rem !important; left: 0.6rem !important;
+    z-index: 9999 !important; background: #1E293B !important;
+    color: #F1F5F9 !important; border: 1px solid #334155 !important;
+    border-radius: 8px !important; font-size: 1.1rem !important;
+    width: 38px !important; height: 38px !important; padding: 0 !important;
+    cursor: pointer !important; box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+}
+.sidebar-toggle-btn button:hover { background: #334155 !important; }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
@@ -333,6 +342,8 @@ def all_cities_snapshot(date_str, tm, wnd, pr, rad, et0):
 # ──────────────────────────────────────────────────────────────
 if "result" not in st.session_state:
     st.session_state.result = None
+if "sidebar_open" not in st.session_state:
+    st.session_state.sidebar_open = True
 # Pré-initialiser les widgets des onglets pour éviter le retour au tab 1
 if "map_mode" not in st.session_state:
     st.session_state.map_mode = "🌡️ Heatmap densité"
@@ -344,6 +355,34 @@ if "ca" not in st.session_state:
     st.session_state.ca = "Maroua"
 if "cb" not in st.session_state:
     st.session_state.cb = "Douala"
+
+# ──────────────────────────────────────────────────────────────
+# BOUTON TOGGLE SIDEBAR
+# ──────────────────────────────────────────────────────────────
+toggle_col = st.columns([1])[0]
+with toggle_col:
+    st.markdown('<div class="sidebar-toggle-btn">', unsafe_allow_html=True)
+    icon = "✕" if st.session_state.sidebar_open else "☰"
+    if st.button(icon, key="toggle_sidebar"):
+        st.session_state.sidebar_open = not st.session_state.sidebar_open
+        st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# Appliquer l'état sidebar via JS
+if not st.session_state.sidebar_open:
+    st.markdown("""
+    <script>
+    const sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
+    if (sidebar) sidebar.style.display = 'none';
+    const main = window.parent.document.querySelector('.main');
+    if (main) main.style.marginLeft = '0';
+    </script>""", unsafe_allow_html=True)
+else:
+    st.markdown("""
+    <script>
+    const sidebar = window.parent.document.querySelector('[data-testid="stSidebar"]');
+    if (sidebar) sidebar.style.display = '';
+    </script>""", unsafe_allow_html=True)
 
 # ──────────────────────────────────────────────────────────────
 # SIDEBAR — COMPACTE, PAS DE SCROLL
