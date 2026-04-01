@@ -57,23 +57,21 @@ footer { display: none !important; }
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
 }
 /* Bouton collapse natif Streamlit */
-[data-testid="collapsedControl"],
-[data-testid="collapsedControl"] > button,
-[data-testid="stSidebarCollapsedControl"],
-[data-testid="stSidebarCollapsedControl"] > button {
+[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"] {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+}
+[data-testid="stSidebarCollapseButton"] button,
+[data-testid="collapsedControl"] button {
     background: #10B981 !important;
-    border-radius: 0 8px 8px 0 !important;
-    border: none !important;
-    width: 24px !important;
-    height: 48px !important;
     color: white !important;
+    border-radius: 50% !important;
+    border: none !important;
+    width: 32px !important;
+    height: 32px !important;
     cursor: pointer !important;
-    position: fixed !important;
-    top: 50% !important;
-    z-index: 99999 !important;
 }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
