@@ -4,3 +4,6 @@ hideTopBar = true
 [client]
 showErrorDetails = false
 toolbarMode = "minimal"
+
+[server]
+enableStaticServing = true

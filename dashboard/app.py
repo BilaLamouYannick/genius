@@ -20,6 +20,24 @@ from datetime import date, timedelta
 st.set_page_config(page_title="GENIUS · Air Quality", page_icon="🌿",
                    layout="wide", initial_sidebar_state="expanded")
 
+# ── PWA : manifest + service worker ──────────────────────────
+st.markdown("""
+<link rel="manifest" href="/app/static/manifest.json">
+<meta name="theme-color" content="#10B981">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GENIUS">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/app/static/sw.js')
+        .then(r => console.log('GENIUS SW registered:', r.scope))
+        .catch(e => console.log('GENIUS SW error:', e));
+    });
+  }
+</script>
+""", unsafe_allow_html=True)
+
 # ──────────────────────────────────────────────────────────────
 # STYLES
 # ──────────────────────────────────────────────────────────────
