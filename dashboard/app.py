@@ -47,21 +47,9 @@ st.markdown("""
 *, html, body { font-family: 'Inter', sans-serif !important; }
 .block-container { padding: .8rem 1.4rem 2rem !important; max-width: 1500px; }
 
-/* ── Cacher menu et footer, garder le header pour le bouton sidebar ── */
+/* ── Cacher menu et footer uniquement ── */
 #MainMenu { display: none !important; }
 footer { display: none !important; }
-/* Header transparent — on garde uniquement le bouton collapse sidebar */
-header[data-testid="stHeader"] {
-    background: transparent !important;
-    border-bottom: none !important;
-}
-header[data-testid="stHeader"]::before { display: none !important; }
-/* Cacher tout dans le header SAUF le bouton collapse sidebar */
-header[data-testid="stHeader"] > div:first-child { opacity: 0 !important; pointer-events: none !important; }
-[data-testid="stSidebarCollapseButton"] {
-    opacity: 1 !important;
-    pointer-events: all !important;
-}
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
