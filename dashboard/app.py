@@ -47,40 +47,24 @@ st.markdown("""
 *, html, body { font-family: 'Inter', sans-serif !important; }
 .block-container { padding: .8rem 1.4rem 2rem !important; max-width: 1500px; }
 
-/* ── Cacher le contenu du header mais garder le bouton sidebar ── */
-header[data-testid="stHeader"] {
-    background: transparent !important;
-    height: 0 !important;
-    min-height: 0 !important;
-}
-header[data-testid="stHeader"] > * { display: none !important; }
+/* ── Cacher header et footer Streamlit ── */
 #MainMenu { display: none !important; }
 footer { display: none !important; }
+header[data-testid="stHeader"] { display: none !important; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
 }
-/* Bouton collapse — toujours visible, vert */
-[data-testid="stSidebarCollapseButton"] {
-    display: flex !important; visibility: visible !important; opacity: 1 !important;
+
+/* ── Bouton toggle custom dans le contenu ── */
+div[data-testid="stMain"] > div > div.sidebar-open-btn > div > button {
     position: fixed !important; top: 0.5rem !important; left: 0.5rem !important;
-    z-index: 99999 !important;
-}
-[data-testid="stSidebarCollapseButton"] button {
-    background: #10B981 !important; color: white !important;
-    border-radius: 8px !important; border: none !important;
-    width: 36px !important; height: 36px !important; cursor: pointer !important;
-}
-[data-testid="collapsedControl"] {
-    display: flex !important; visibility: visible !important; opacity: 1 !important;
-    position: fixed !important; top: 0.5rem !important; left: 0.5rem !important;
-    z-index: 99999 !important;
-}
-[data-testid="collapsedControl"] button {
-    background: #10B981 !important; color: white !important;
-    border-radius: 8px !important; border: none !important;
-    width: 36px !important; height: 36px !important; cursor: pointer !important;
+    z-index: 9999 !important; background: #10B981 !important;
+    color: white !important; border: none !important;
+    border-radius: 8px !important; font-size: 1.1rem !important;
+    width: 36px !important; height: 36px !important; padding: 0 !important;
+    cursor: pointer !important;
 }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
@@ -354,6 +338,8 @@ def all_cities_snapshot(date_str, tm, wnd, pr, rad, et0):
 # ──────────────────────────────────────────────────────────────
 if "result" not in st.session_state:
     st.session_state.result = None
+if "sidebar_open" not in st.session_state:
+    st.session_state.sidebar_open = True
 # Pré-initialiser les widgets des onglets pour éviter le retour au tab 1
 if "map_mode" not in st.session_state:
     st.session_state.map_mode = "🌡️ Heatmap densité"
@@ -370,7 +356,18 @@ if "cb" not in st.session_state:
 # ──────────────────────────────────────────────────────────────
 # SIDEBAR — COMPACTE, PAS DE SCROLL
 # ──────────────────────────────────────────────────────────────
+# CSS pour cacher la sidebar si fermée
+if not st.session_state.sidebar_open:
+    st.markdown("""
+    <style>
+    [data-testid="stSidebar"] { display: none !important; }
+    [data-testid="stMain"] { margin-left: 0 !important; }
+    </style>""", unsafe_allow_html=True)
+
 with st.sidebar:
+    if st.button("✕", key="_sb_close", help="Réduire"):
+        st.session_state.sidebar_open = False
+        st.rerun()
     # Header compact
     st.markdown("""
     <div style="text-align:center;padding:.15rem 0 .5rem">
@@ -517,6 +514,12 @@ for ci_k,(ic,lb,c,v,u) in zip(cols_k, kpis):
                   f'<div class="l">{ic} {lb} — {u}</div></div>', unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
+
+# ── Bouton ouvrir sidebar quand elle est fermée ──
+if not st.session_state.sidebar_open:
+    if st.button("☰  Paramètres", key="_sb_open"):
+        st.session_state.sidebar_open = True
+        st.rerun()
 
 # ── Tabs — avec mémorisation de l'onglet actif ──
 tab_labels = [
