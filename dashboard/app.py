@@ -47,8 +47,13 @@ st.markdown("""
 *, html, body { font-family: 'Inter', sans-serif !important; }
 .block-container { padding: .8rem 1.4rem 2rem !important; max-width: 1500px; }
 
-/* ── Cacher la barre Streamlit ── */
-header[data-testid="stHeader"] { display: none !important; }
+/* ── Cacher le contenu du header mais garder le bouton sidebar ── */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    height: 0 !important;
+    min-height: 0 !important;
+}
+header[data-testid="stHeader"] > * { display: none !important; }
 #MainMenu { display: none !important; }
 footer { display: none !important; }
 
@@ -56,22 +61,26 @@ footer { display: none !important; }
 [data-testid="stSidebar"] {
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
 }
-/* Bouton collapse natif Streamlit */
-[data-testid="stSidebarCollapseButton"],
-[data-testid="collapsedControl"] {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+/* Bouton collapse — toujours visible, vert */
+[data-testid="stSidebarCollapseButton"] {
+    display: flex !important; visibility: visible !important; opacity: 1 !important;
+    position: fixed !important; top: 0.5rem !important; left: 0.5rem !important;
+    z-index: 99999 !important;
 }
-[data-testid="stSidebarCollapseButton"] button,
+[data-testid="stSidebarCollapseButton"] button {
+    background: #10B981 !important; color: white !important;
+    border-radius: 8px !important; border: none !important;
+    width: 36px !important; height: 36px !important; cursor: pointer !important;
+}
+[data-testid="collapsedControl"] {
+    display: flex !important; visibility: visible !important; opacity: 1 !important;
+    position: fixed !important; top: 0.5rem !important; left: 0.5rem !important;
+    z-index: 99999 !important;
+}
 [data-testid="collapsedControl"] button {
-    background: #10B981 !important;
-    color: white !important;
-    border-radius: 50% !important;
-    border: none !important;
-    width: 32px !important;
-    height: 32px !important;
-    cursor: pointer !important;
+    background: #10B981 !important; color: white !important;
+    border-radius: 8px !important; border: none !important;
+    width: 36px !important; height: 36px !important; cursor: pointer !important;
 }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
