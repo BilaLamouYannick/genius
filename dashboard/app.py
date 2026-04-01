@@ -218,7 +218,7 @@ try:
 except Exception as e:
     st.error(f"❌ Modèle introuvable : {e}"); st.stop()
 
-API_URL = "http://localhost:8000"
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
 def api_alive():
     try: return requests.get(f"{API_URL}/health", timeout=1.5).status_code == 200
     except: return False
