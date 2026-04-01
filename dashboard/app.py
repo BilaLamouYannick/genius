@@ -370,7 +370,7 @@ with st.sidebar:
                     + " · ".join(warns) + "</div>", unsafe_allow_html=True)
 
     st.markdown("<hr>", unsafe_allow_html=True)
-    predict_btn = st.button("🔮  Prédire maintenant")
+    predict_btn = st.button("Prédire maintenant")
 
     # Légende
     st.markdown("""
@@ -419,13 +419,13 @@ st.markdown(f"""
           GENIUS <span style="color:#10B981">· Qualité de l'Air au Cameroun</span></div>
         <div style="display:flex;gap:.4rem;margin-top:.3rem;flex-wrap:wrap;align-items:center">
           <span style="background:rgba(16,185,129,.18);color:#10B981;border:1px solid rgba(16,185,129,.35);
-                border-radius:20px;padding:.1rem .55rem;font-size:.66rem;font-weight:600">🏆 IndabaX 2026</span>
+                border-radius:20px;padding:.1rem .55rem;font-size:.66rem;font-weight:600"> IndabaX 2026</span>
           <span style="color:#64748B;font-size:.66rem">XGBoost R²={m_met['r2']:.4f} · MAE={m_met['mae']:.4f} · 40 villes · 10 régions</span>
         </div>
       </div>
     </div>
     <div style="font-size:.68rem;color:#475569;text-align:right;line-height:1.6">
-      Yannick SOKDOU<br>Félicia TCHAUGO · DOKI BABA G
+      Yannick SOKDOU BILA LAMOU<br>Félicia TCHAUGO · DOKI BABA G
     </div>
   </div>
 </div>
@@ -438,7 +438,7 @@ if st.session_state.result is None:
     st.markdown("""
     <div style="text-align:center;padding:3.5rem 2rem;background:white;
                 border-radius:16px;border:2px dashed #E2E8F0">
-      <div style="font-size:3rem">🔮</div>
+    #   <div style="font-size:3rem">🔮</div>
       <div style="font-size:1.2rem;font-weight:700;color:#1E293B;margin-top:.6rem">
         Configurez les paramètres et cliquez <em>Prédire maintenant</em>
       </div>
