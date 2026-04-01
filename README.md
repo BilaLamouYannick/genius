@@ -8,7 +8,7 @@
 
 ## Équipe
 
-**Yannick SOKDOU · Félicia TCHAUGO · DOKI BABA G**
+**Yannick SOKDOU BILA LAMOU · Félicia TCHAUGO · DOKI BABA G**
 
 ---
 
@@ -31,11 +31,13 @@ genius/
 ├── models/
 │   ├── xgboost_pm25_genius.pkl     ← modèle XGBoost entraîné
 │   └── model_metadata.json         ← métadonnées et formule proxy
+|   └── GENIUS_Hackathon_IndabaX2026_COMPLET.ipynb  ← notebook complet
+|
 ├── api/
 │   └── main.py                     ← API FastAPI /predict
 ├── dashboard/
 │   └── app.py                      ← Dashboard Streamlit
-├── GENIUS_Hackathon_IndabaX2026_COMPLET_24.ipynb  ← notebook complet
+|
 └── requirements.txt
 ```
 
