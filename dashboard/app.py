@@ -610,7 +610,7 @@ with tab1:
             xaxis=dict(title="Contribution au score", gridcolor="#E2E8F0"),
             font=dict(family="Inter", size=11),
         )
-        st.plotly_chart(fig_c, use_container_width=True)
+        st.plotly_chart(fig_c, width="stretch")
 
     with right:
         # Prévision 30 jours
@@ -649,7 +649,7 @@ with tab1:
             font=dict(family="Inter"), showlegend=False,
             margin=dict(t=10,b=30,l=10,r=10),
         )
-        st.plotly_chart(fig_fore, use_container_width=True)
+        st.plotly_chart(fig_fore, width="stretch")
 
         # Statistiques de prévision
         fc1, fc2, fc3, fc4 = st.columns(4)
@@ -715,7 +715,7 @@ with tab1:
             ),
             yaxis=dict(visible=False, autorange="reversed"),
         )
-        st.plotly_chart(fig_cal, use_container_width=True)
+        st.plotly_chart(fig_cal, width="stretch")
 
 # ═══════════════════════════════════════════════
 # TAB 2 — CARTE DE CHALEUR
@@ -759,7 +759,7 @@ with tab2:
         legend=dict(title="Niveau", bgcolor="rgba(255,255,255,.92)",
                     bordercolor="#E2E8F0", borderwidth=1),
     )
-    st.plotly_chart(fig_map, use_container_width=True)
+    st.plotly_chart(fig_map, width="stretch")
 
     # Top 10 + donut côte à côte
     c_top, c_pie = st.columns([1.5, 1], gap="large")
@@ -771,7 +771,7 @@ with tab2:
             c_ = {l[0]:l[1] for l in LEVELS}.get(row["Niveau"],"#fff")
             return [f"background:{c_}18;border-left:3px solid {c_}"]+[""]*4
         st.dataframe(top10.style.apply(hl,axis=1).format({"Score PM2.5":"{:.2f}"}),
-                     use_container_width=True, hide_index=True, height=320)
+                     width="stretch", hide_index=True, height=320)
 
     with c_pie:
         st.markdown('<div class="sec">📊 Répartition nationale</div>', unsafe_allow_html=True)
@@ -784,7 +784,7 @@ with tab2:
                             marker=dict(line=dict(color="white",width=2)))
         fig_p.update_layout(showlegend=False, margin=dict(t=0,b=0,l=0,r=0),
                             paper_bgcolor="white")
-        st.plotly_chart(fig_p, use_container_width=True)
+        st.plotly_chart(fig_p, width="stretch")
 
 # ═══════════════════════════════════════════════
 # TAB 3 — COMPARAISON CLIMAT vs POLLUTION
@@ -837,7 +837,7 @@ with tab3:
         yaxis=dict(title="Score proxy PM2.5", range=[0,50], gridcolor="#E2E8F0"),
         yaxis2=dict(title=f"{clim_var} ({unit_k})", gridcolor="rgba(0,0,0,0)"),
     )
-    st.plotly_chart(fig_dual, use_container_width=True)
+    st.plotly_chart(fig_dual, width="stretch")
 
     # Matrice de corrélation visuelle
     st.markdown('<div class="sec">🔗 Impact des facteurs climatiques sur la pollution</div>', unsafe_allow_html=True)
@@ -854,7 +854,7 @@ with tab3:
             "Harmattan, feux de brousse",
         ]
     }
-    st.dataframe(pd.DataFrame(corr_data), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(corr_data), width="stretch", hide_index=True)
 
     # Scatter plot : un facteur vs PM2.5 mensuel
     st.markdown('<div class="sec">📈 Relation mensuelle (toutes régions)</div>', unsafe_allow_html=True)
@@ -868,7 +868,7 @@ with tab3:
                          marker=dict(size=14, line=dict(color="white",width=1.5)))
     fig_sc.update_layout(paper_bgcolor="white", plot_bgcolor="#F8FAFC",
                          font=dict(family="Inter"), margin=dict(t=10,b=30))
-    st.plotly_chart(fig_sc, use_container_width=True)
+    st.plotly_chart(fig_sc, width="stretch")
 
 # ═══════════════════════════════════════════════
 # TAB 4 — ANALYSE RÉGIONALE
@@ -901,7 +901,7 @@ with tab4:
         yaxis=dict(title="Score proxy PM2.5", range=[0,50], gridcolor="#E2E8F0"),
         font=dict(family="Inter"), margin=dict(t=30,b=40),
     )
-    st.plotly_chart(fig_reg, use_container_width=True)
+    st.plotly_chart(fig_reg, width="stretch")
 
     # Comparaison 2 villes sur l'année
     st.markdown('<div class="sec">🔀 Comparaison saisonnière inter-villes</div>', unsafe_allow_html=True)
@@ -945,7 +945,7 @@ with tab4:
         legend=dict(orientation="h", yanchor="bottom", y=1.02),
         margin=dict(t=20,b=30),
     )
-    st.plotly_chart(fig_cmp, use_container_width=True)
+    st.plotly_chart(fig_cmp, width="stretch")
 
 # ──────────────────────────────────────────────────────────────
 st.markdown("""
