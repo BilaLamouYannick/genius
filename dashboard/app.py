@@ -47,25 +47,20 @@ st.markdown("""
 *, html, body { font-family: 'Inter', sans-serif !important; }
 .block-container { padding: .8rem 1.4rem 2rem !important; max-width: 1500px; }
 
-/* ── Cacher header et footer Streamlit ── */
+/* ── Cacher la barre Streamlit ── */
+header[data-testid="stHeader"] { display: none !important; }
 #MainMenu { display: none !important; }
 footer { display: none !important; }
-header[data-testid="stHeader"] { display: none !important; }
 
-/* ── Sidebar ── */
+/* ── Sidebar toujours visible ── */
 [data-testid="stSidebar"] {
+    display: flex !important; visibility: visible !important; opacity: 1 !important;
+    transform: none !important; left: 0 !important; position: relative !important;
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
 }
-
-/* ── Bouton toggle custom dans le contenu ── */
-div[data-testid="stMain"] > div > div.sidebar-open-btn > div > button {
-    position: fixed !important; top: 0.5rem !important; left: 0.5rem !important;
-    z-index: 9999 !important; background: #10B981 !important;
-    color: white !important; border: none !important;
-    border-radius: 8px !important; font-size: 1.1rem !important;
-    width: 36px !important; height: 36px !important; padding: 0 !important;
-    cursor: pointer !important;
-}
+/* Cacher le bouton collapse (flèche) mais garder la sidebar ouverte */
+[data-testid="collapsedControl"] { display: none !important; }
+button[kind="header"] { display: none !important; }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
@@ -349,7 +344,6 @@ if "ca" not in st.session_state:
     st.session_state.ca = "Maroua"
 if "cb" not in st.session_state:
     st.session_state.cb = "Douala"
-
 
 # ──────────────────────────────────────────────────────────────
 # SIDEBAR — COMPACTE, PAS DE SCROLL
