@@ -34,8 +34,10 @@ header[data-testid="stHeader"] { display: none !important; }
 #MainMenu { display: none !important; }
 footer { display: none !important; }
 
-/* ── Sidebar ── */
-[data-testid="stSidebar"] { background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important; }
+/* ── Sidebar toujours visible ── */
+[data-testid="stSidebar"] { display: flex !important; visibility: visible !important;
+    background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important; }
+[data-testid="collapsedControl"] { display: none !important; }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
