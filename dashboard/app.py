@@ -47,13 +47,36 @@ st.markdown("""
 *, html, body { font-family: 'Inter', sans-serif !important; }
 .block-container { padding: .8rem 1.4rem 2rem !important; max-width: 1500px; }
 
-/* ── Cacher menu et footer uniquement ── */
+/* ── Cacher menu et footer ── */
 #MainMenu { display: none !important; }
 footer { display: none !important; }
+
+/* ── Header Streamlit : masquer le texte, garder le bouton collapse ── */
+header[data-testid="stHeader"] {
+    background: #0F172A !important;
+    height: 2.5rem !important;
+}
+/* Cacher les éléments du header sauf le bouton sidebar */
+header[data-testid="stHeader"] [data-testid="stDecoration"],
+header[data-testid="stHeader"] [data-testid="stToolbar"],
+header[data-testid="stHeader"] [data-testid="stStatusWidget"] {
+    display: none !important;
+}
+/* Icône du bouton collapse en police Material Icons */
+[data-testid="stSidebarCollapseButton"] span,
+[data-testid="collapsedControl"] span {
+    font-family: 'Material Icons' !important;
+    font-size: 1.2rem !important;
+    color: #10B981 !important;
+}
+
+/* ── Contenu principal : espace pour la barre du haut ── */
+.block-container { padding-top: 0.5rem !important; }
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
     background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important;
+    top: 2.5rem !important;
 }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
 [data-testid="stSidebar"] label,
@@ -422,7 +445,7 @@ if predict_btn:
 m_met = ART["model_metrics"]
 st.markdown(f"""
 <div style="background:linear-gradient(135deg,#0F172A,#1E3A5F);border-radius:12px;
-            padding:.75rem 1.3rem;margin-bottom:.7rem;box-shadow:0 4px 20px rgba(0,0,0,.18)">
+            padding:.75rem 1.3rem;margin-top:3rem;margin-bottom:.7rem;box-shadow:0 4px 20px rgba(0,0,0,.18)">
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
     <div style="display:flex;align-items:center;gap:.9rem">
       <div style="font-size:1.7rem;line-height:1">🌿</div>
