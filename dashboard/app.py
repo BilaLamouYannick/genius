@@ -29,6 +29,11 @@ st.markdown("""
 *, html, body { font-family: 'Inter', sans-serif !important; }
 .block-container { padding: .8rem 1.4rem 2rem !important; max-width: 1500px; }
 
+/* ── Cacher la barre Streamlit ── */
+header[data-testid="stHeader"] { display: none !important; }
+#MainMenu { display: none !important; }
+footer { display: none !important; }
+
 /* ── Sidebar ── */
 [data-testid="stSidebar"] { background:#0F172A !important; width:290px !important; min-width:290px !important; max-width:290px !important; }
 [data-testid="stSidebar"] > div:first-child { padding: .6rem .9rem !important; }
